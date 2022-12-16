@@ -1,9 +1,9 @@
 import mysql from 'mysql';
 
 const connection = mysql.createPool({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
-    password: '123',
+    password: 'root',
     database: 'psuti-gang'
 })
 

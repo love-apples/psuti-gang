@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
             <span class="logo__span">psuti gang.</span>
         </div>
         <div class="header__navbar">
-            <a href="#" class="header__link">Войти</a>
+            <a href="/auth" class="header__link">Войти</a>
         </div>
     </div>
     <div class="container">
@@ -25,40 +25,50 @@
                 <a href="" class="panel__link">Все обсуждения</a>
                 <a href="" class="panel__link">Мои темы</a>
             </nav>
+            <span class="panel__chapter">
+                Помощь в предметах
+            </span>
+            <nav class="panel__links">
+                <a href="" class="panel__link">Математика</a>
+                <a href="" class="panel__link">История</a>
+                <a href="" class="panel__link">Физика</a>
+                <a href="" class="panel__link">Информатика</a>
+                <a href="" class="panel__link">Русский язык</a>
+                <a href="" class="panel__link">Менеджмент</a>
+                <a href="" class="panel__link">Английский</a>
+            </nav>
+            <span class="panel__chapter">
+                Готовые работы
+            </span>
+            <nav class="panel__links">
+                <a href="" class="panel__link">Лекции</a>
+                <a href="" class="panel__link">Практики</a>
+                <a href="" class="panel__link">Лабораторные</a>
+                <a href="" class="panel__link">Курсовые</a>
+            </nav>
+            <span class="panel__chapter">
+                Оффтоп
+            </span>
+            <nav class="panel__links">
+                <a href="" class="panel__link">Жизнь в ПГУТИ</a>
+                <a href="" class="panel__link">Жизнь в общежитиях</a>
+                <a href="" class="panel__link">Мероприятия</a>
+                <a href="" class="panel__link">Другое</a>
+            </nav>
         </div>
         <div class="content">
-            <div class="content__post">
+            <% for(var i=1; i<rows.length; i++) {%>
+            <a href="" class="content__post">
                 <div class="post__info">
-                    <span class="post__name">Как я стал пидором?</span>
-                    <span class="post__author">Сидоров Никита</span>
+                    <span class="post__name"> <%- rows[i].title; %> </span>
+                    <span class="post__author"> <%- rows[i].author; %> </span>
                 </div>
 
                 <div class="post__stats">
                     <span class="post__comments">36</span>
                 </div>
-            </div>
-
-            <div class="content__post">
-                <div class="post__info">
-                    <span class="post__name">Киньте лабы по физике за первый семак</span>
-                    <span class="post__author">Семенов Денис</span>
-                </div>
-
-                <div class="post__stats">
-                    <span class="post__comments">2</span>
-                </div>
-            </div>
-
-            <div class="content__post">
-                <div class="post__info">
-                    <span class="post__name">Почему быть долбоебом - это круто. Объясняю на пальцах.</span>
-                    <span class="post__author">Марк Юркульский</span>
-                </div>
-
-                <div class="post__stats">
-                    <span class="post__comments">1242178</span>
-                </div>
-            </div>
+            </a>
+            <% } %>
         </div>
     </div>
 </body>

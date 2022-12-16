@@ -11,6 +11,7 @@ apiRouter.post('/setImageLink', apiRequestController.setImageLink);
 
 apiRouter.post('/createTheme', apiRequestController.createTheme);
 apiRouter.get('/getTheme', apiRequestController.getTheme);
+apiRouter.get('/getThemes', apiRequestController.getThemes);
 apiRouter.post('/editTheme', apiRequestController.editTheme);
 apiRouter.post('/deleteTheme', apiRequestController.deleteTheme);
 

@@ -128,7 +128,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE id="' + id + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.' + error});
             }
 
             if (!rows.length > 0) {
@@ -369,6 +369,17 @@ class apiRequestController {
                     return response.status(200).json({'result': 'Тема успешно удалена!'})
                 })
             });
+        });
+    }
+
+    async getThemes(request, response) {
+        database.query('SELECT * FROM `themes`;', (error, rows, fields) => {
+            if (error) {
+                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.' + error});
+            }
+
+            return response.status(200).json({'result': rows});
+
         });
     }
 }
