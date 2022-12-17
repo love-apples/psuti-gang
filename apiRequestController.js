@@ -51,7 +51,8 @@ class apiRequestController {
                 "`date_register_unix`, " + 
                 "`banned`, " + 
                 "`image_link`, " + 
-                "`description`) VALUES (" +
+                "`description`, " +
+                "`student_group`) VALUES (" +
                 "'" + login + "', " + 
                 "'" + crypto.createHash('md5').update(password).digest('hex') + "', " + 
                 "'" + username + "', " + 
@@ -60,7 +61,8 @@ class apiRequestController {
                 "'" + Date.now() + "', " + 
                 "'0', " + 
                 "'https://sun9-83.userapi.com/impg/FNZUm9VIPnQuDj_QtmY_PqWwaMkkJ6KYZqMY_g/b2lipxRH7rU.jpg?size=1440x1425&quality=95&sign=e657c2ef30fcb0757a499aa1806eefe5&type=album', " + 
-                "'Пользователь не указал информации о себе.');", (error) => {
+                "'Пользователь не указал информации о себе.'" + 
+                "'Не указано.');", (error) => {
                     if (error) { 
                         return response.status(500).json({'error': 'Произошла ошибка на сервере.'})
                     }
@@ -117,8 +119,8 @@ class apiRequestController {
                 return response.status(403).json({'error': 'Доступ запрещён.'})
             }
 
-            if (description.length > 1000) {
-                return response.status(400).json({'error': 'Описание не должно составлять больше 1000 символов'})
+            if (description.length > 100) {
+                return response.status(400).json({'error': 'Описание не должно составлять больше 100 символов'})
             }
             
             database.query("UPDATE `users` SET `description` = '" + description + "' WHERE `token` = '" + token + "';", (error) => {

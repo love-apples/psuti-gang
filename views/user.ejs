@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%- include('blocks/head.ejs');%>
-    <title>Вход</title>
+    <title><%= result.username;%></title>
 </head>
 <body>
 
@@ -17,11 +17,11 @@
 
             <div class="user">
                 <div class="user__name">
-                    <span class="user__name__span">Ниггер Ниггер</span>
+                    <span class="user__name__span"><%= result.username;%></span>
                 </div>
 
                 <div class="user__description">
-                    <span class="user_description__span">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere explicabo aperiam voluptatem. Officia cum, ipsum distinctio impedit doloremque asperiores itaque quis excepturi. Maxime iusto iste reprehenderit assumenda, sit alias excepturi.</span>
+                    <span class="user_description__span"><%= result.description;%></span>
                 </div>
             </div>
 

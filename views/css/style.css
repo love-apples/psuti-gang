@@ -301,10 +301,33 @@ body {
 .profile {
   display: flex;
   margin-top: 40px;
+  border-radius: 15px;
   background-color:#272727;
 }
 
 .profile__avatar__img {
-  max-width: 250px;
-  max-height: 250px;
+  width: 250px;
+  height: 250px;
+}
+
+.profile {
+  width: 100%;
+}
+
+.user {
+  width: 100%;
+}
+
+.user__name {
+  font-family: NunitoSans-SemiBold;
+  font-size: 25px;
+  padding-top: 20px;
+  padding-left: 20px;
+  color: #EAEAEA;
+}
+
+.user__description {
+  padding-left: 20px;
+  color: #949494;
+  font-family: NunitoSans-SemiBold;
 }
