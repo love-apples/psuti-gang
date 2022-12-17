@@ -23,11 +23,23 @@ class apiRequestController {
             }
 
             if (login.length > 50) {
-                return response.status(403).json({'error': 'Логин не может составлять больше 50 символов'})
+                return response.status(403).json({'error': 'Логин не может составлять больше 50 символов.'})
             }
 
             if (username.length > 50) {
-                return response.status(403).json({'error': 'Имя не должно составлять больше 50 символов'})
+                return response.status(403).json({'error': 'Имя не должно составлять больше 50 символов.'})
+            }
+
+            if (login.length < 3) { 
+                return response.status(403).json({'error': 'Логин должен составлять больше 3 символов.'})
+            }
+
+            if (username.length < 5) { 
+                return response.status(403).json({'error': 'Имя с фамилией должены составлять больше 5 символов.'})
+            }
+
+            if (password.length < 5) { 
+                return response.status(403).json({'error': 'Пароль должен составлять больше 5 символов.'})
             }
 
             database.query("INSERT INTO `users` (" + 
@@ -119,7 +131,7 @@ class apiRequestController {
         });
     }
 
-    async getUser(request, response) {
+    async getUserById(request, response) {
         if (!tools.checkJsonKey(request.body, 'id')) {
             return response.status(400).json({'error': 'Некорректные данные.'});
         }
@@ -133,6 +145,35 @@ class apiRequestController {
 
             if (!rows.length > 0) {
                 return response.status(403).json({'error': 'Пользователь не найден.'})
+            }
+
+            return response.status(200).json({'result': {
+                'id': rows[0].id, 
+                'username': rows[0].username, 
+                'role': rows[0].role, 
+                'date_register_unix': rows[0].date_register_unix,
+                'banned': rows[0].banned,
+                'image_link': rows[0].image_link,
+                'description': rows[0].description
+            }});
+
+        });
+    }
+
+    async getUserByToken(request, response) {
+        if (!tools.checkJsonKey(request.body, 'token')) {
+            return response.status(400).json({'error': 'Некорректные данные.'});
+        }
+
+        var token = tools.delInjection(request.body.token);
+
+        database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
+            if (error) {
+                return response.status(500).json({'error': 'Ошибка на сервере.' + error});
+            }
+
+            if (!rows.length > 0) {
+                return response.status(403).json({'error': 'Некорректный токен.'})
             }
 
             return response.status(200).json({'result': {

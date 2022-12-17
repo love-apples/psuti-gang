@@ -8,7 +8,7 @@
 
 :root {
     --toast-width: 270px;
-    --toast-border-radius: 0.25rem;
+    --toast-border-radius: 15px;
     --toast-theme-default: #fff;
     --toast-theme-primary: #0d6efd;
     --toast-theme-secondary: #6c757d;

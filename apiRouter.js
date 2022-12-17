@@ -5,7 +5,8 @@ const apiRouter = Router();
 
 apiRouter.post('/register', apiRequestController.register);
 apiRouter.post('/auth', apiRequestController.auth);
-apiRouter.get('/getUser', apiRequestController.getUser);
+apiRouter.get('/getUserById', apiRequestController.getUserById);
+apiRouter.post('/getUserByToken', apiRequestController.getUserByToken);
 apiRouter.post('/setDescription', apiRequestController.setDescription);
 apiRouter.post('/setImageLink', apiRequestController.setImageLink);
 

@@ -11,13 +11,14 @@
     <div class="container">
         <div class="authblock">
             <div class="authblock__span"> 
-                <span>Авторизация</span> 
-                <span class="authblock__noauth">Нет аккаунта? <a href="/register" class="authblock__noauth__link">Зарегистрируйтесь!</a></span> 
+                <span>Регистрация</span> 
+                <span class="authblock__noauth">Есть аккаунт? <a href="/auth" class="authblock__noauth__link">Авторизируйтесь!</a></span> 
             </div>
             <div class="authblock__form">
                 <input type="text" id="login" placeholder="Логин" class="form__input">
+                <input type="text" id="username" placeholder="Фамилия и имя" class="form__input">
                 <input type="password" id="password" placeholder="Пароль" class="form__input">
-                <button id="btn-submit" class="panel__btn authblock__form__btn">Войти</button>
+                <button id="btn-submit" class="panel__btn authblock__form__btn">Зарегистрироваться</button>
             </div>
         </div>
     </div>
@@ -29,16 +30,17 @@
     document.getElementById('btn-submit').onclick = () => {
         let login = document.getElementById('login').value;
         let password = document.getElementById('password').value;
+        let username = document.getElementById('username').value;
 
         $.ajax({
-            url: "api/auth",
+            url: "api/register",
             method: "POST",
-            data: {"login": login, "password": password},
+            data: {"login": login, "password": password, "username": username},
             success: function(data) {
                 Cookies.set('token', data.token, Date.now() + 604800);
 
                 new Toast({
-                    title: 'Авторизация',
+                    title: 'Регистрация',
                     text: data.result,
                     theme: 'dark',
                     autohide: true,
@@ -47,7 +49,7 @@
             },
             error: (data) => {
                 new Toast({
-                    title: 'Авторизация',
+                    title: 'Регистрация',
                     text: data.responseJSON.error,
                     theme: 'dark',
                     autohide: true,
