@@ -28,14 +28,60 @@
   margin: 0;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: #303030;
+}
+
+.nofity {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  background-color: #272727;
+  height: 100px;
+  width: 270px;
+  margin-top: 75px;
+  margin-right: 50px;
+  border-radius: 15px;
+  animation: ani 5s forwards;
+}
+
+@keyframes ani {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  80% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.notify__title {
+  color: #EAEAEA;
+  font-family: NotoSans-Medium;
+  font-size: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.notify__desc {
+  color: #949494;
+  font-family: NotoSans-Regular;
+  font-size: 14px;
+  padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 .header {
   display: flex;
   background-color: #272727;
   padding: 7px;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -48,6 +94,7 @@ body {
   font-family: RobotoMono-Regular;
   font-size: 25px;
   color: #EAEAEA;
+  text-decoration: none;
 } 
 
 .header__navbar {
@@ -68,7 +115,12 @@ body {
   justify-content: space-between;
   margin: 0 auto;
   width: 1200px;
-  height: 150vh;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
 }
 
 .content {
@@ -91,10 +143,10 @@ body {
   text-decoration: none;
   transition: all 0.3s;
 }
+
 .content__post:hover {
   background-color: #2D2D2D;
 }
-
 
 .post__info {
   display: flex;
@@ -186,7 +238,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 400px;
+  width: 25%;
   margin: 0 auto;
   border-radius: 15px;
   margin-top: 100px;
@@ -194,7 +246,7 @@ body {
   padding: 20px;
   background-color: #272727;
   text-align: center;
-  height: 30%;
+  height: 50%;
 }
 
 .authblock__form {
@@ -206,14 +258,41 @@ body {
 
 .form__login {
   padding: 10px 40px;
+  margin-top: 70px;
+  background-color: #2D2D2D;
+  border: none;
+  border-radius: 15px;
+  border: solid #272727 2px;
+  outline: none;
+  color: #EAEAEA;
+  transition: all 0.3s;
+} 
+.form__login:focus {
+  border: solid #397DCC 2px;
 }
 
 .form__password {
   padding: 10px 40px;
+  margin-top: 60px;
+  background-color: #2D2D2D;
+  border: none;
+  border-radius: 15px;
+  border: solid #272727 2px;
+  outline: none;
+  color: #EAEAEA;
+}
+
+.form__password:focus {
+  border: solid #397DCC 2px;
 }
 
 .authblock__span {
   font-family: NotoSans-Regular;
   color:#EAEAEA;
   font-size: 30px;
+  margin-top: 60px;
+}
+
+.authblock__form__btn {
+  margin-top: 60px;
 }

@@ -1,21 +1,12 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css" type="text/css">
-  <title>PSUTI GANG</title>
+    <%- include('blocks/head.ejs');%>
+    <title>PSUTI GANG</title>
 </head>
 <body>
-    <div class="header">
-        <div class="header__logo">
-            <span class="logo__span">psuti gang.</span>
-        </div>
-        <div class="header__navbar">
-            <a href="/auth" class="header__link">Войти</a>
-        </div>
-    </div>
+    <%- include('blocks/header.ejs');%>
+    
     <div class="container">
         <div class="panel">
             <div class="panel__buttons">
@@ -57,7 +48,7 @@
             </nav>
         </div>
         <div class="content">
-            <% for(var i=1; i<rows.length; i++) {%>
+            <% for(var i=0; i<rows.length; i++) {%>
             <a href="" class="content__post">
                 <div class="post__info">
                     <span class="post__name"> <%- rows[i].title; %> </span>

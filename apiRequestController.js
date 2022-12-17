@@ -15,7 +15,7 @@ class apiRequestController {
         database.query('SELECT * FROM `users` WHERE login="' + login + '";', (error, rows, fields) => {
             
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (rows.length > 0) {
@@ -69,7 +69,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE login="' + login + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows.length > 0) {
@@ -94,7 +94,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows.length > 0) {
@@ -128,7 +128,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE id="' + id + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.' + error});
+                return response.status(500).json({'error': 'Ошибка на сервере.' + error});
             }
 
             if (!rows.length > 0) {
@@ -158,7 +158,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows.length > 0) {
@@ -202,7 +202,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows.length > 0) {
@@ -240,7 +240,7 @@ class apiRequestController {
         
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows.length > 0) {
@@ -249,7 +249,7 @@ class apiRequestController {
 
             database.query('SELECT * FROM `themes` WHERE id="' + theme_id + '";', (error, rows_database, fields) => {
                 if (error) {
-                    return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                    return response.status(500).json({'error': 'Ошибка на сервере.'});
                 }
     
                 if (!rows_database.length > 0) {
@@ -287,7 +287,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows_user, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows_user.length > 0 || rows_user[0].id != user_id) {
@@ -296,7 +296,7 @@ class apiRequestController {
 
             database.query('SELECT * FROM `themes` WHERE id="' + theme_id + '";', (error, rows_database, fields) => {
                 if (error) {
-                    return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                    return response.status(500).json({'error': 'Ошибка на сервере.'});
                 }
     
                 if (!rows_database.length > 0) {
@@ -341,7 +341,7 @@ class apiRequestController {
 
         database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows_user, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
             }
 
             if (!rows_user.length > 0 || rows_user[0].id != user_id) {
@@ -350,7 +350,7 @@ class apiRequestController {
 
             database.query('SELECT * FROM `themes` WHERE id="' + theme_id + '";', (error, rows_database, fields) => {
                 if (error) {
-                    return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.'});
+                    return response.status(500).json({'error': 'Ошибка на сервере.'});
                 }
     
                 if (!rows_database.length > 0) {
@@ -375,7 +375,7 @@ class apiRequestController {
     async getThemes(request, response) {
         database.query('SELECT * FROM `themes`;', (error, rows, fields) => {
             if (error) {
-                return response.status(500).json({'error': 'Ошибка на сервере, пошел ты нахуй.' + error});
+                return response.status(500).json({'error': 'Ошибка на сервере.' + error});
             }
 
             return response.status(200).json({'result': rows});

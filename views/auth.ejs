@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <%- include('blocks/head.ejs');%>
     <title>Вход</title>
 </head>
 <body>
-    <div class="header">
-        <div class="header__logo">
-            <span class="logo__span">psuti gang.</span>
-        </div>
-        <div class="header__navbar">
-            <a href="/auth" class="header__link">Войти</a>
-        </div>
-    </div>
+
+    <%- include('blocks/header.ejs');%>
 
     <div class="container">
         <div class="authblock">
             <span class="authblock__span">Авторизация</span>
-            <form action="api/auth" class="authblock__form" method="post">
-                <input type="text" class="form__login">
-                <input type="password" class="form__password">
-                <button class="panel__btn">Войти</button>
-            </form>
+            <div class="authblock__form">
+                <input type="text" id="login" placeholder="Логин" class="form__login">
+                <input type="password" id="password" placeholder="Пароль" class="form__password">
+                <button id="btn-submit" class="panel__btn authblock__form__btn">Войти</button>
+            </div>
         </div>
     </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+<script src="js/js.cookie.js"></script>
+
+<script>
+    document.getElementById('btn-submit').onclick = () => {
+        let login = document.getElementById('login').value;
+        let password = document.getElementById('password').value;
+
+        $.ajax({
+            url: "api/auth",
+            method: "POST",
+            data: {"login": login, "password": password},
+            success: function(data) {
+                Cookies.set('token', data.token, Date.now() + 604800);
+
+                new Toast({
+                    title: 'Авторизация',
+                    text: data.result,
+                    theme: 'dark',
+                    autohide: true,
+                    interval: 3000
+                });
+            },
+            error: (data) => {
+                new Toast({
+                    title: 'Авторизация',
+                    text: data.responseJSON.error,
+                    theme: 'dark',
+                    autohide: true,
+                    interval: 3000
+                });
+            }
+        });
+    };
+
+</script>
+
 </html>
