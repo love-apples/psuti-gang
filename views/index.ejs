@@ -10,7 +10,7 @@
     <div class="container">
         <div class="panel">
             <div class="panel__buttons">
-                <button class="panel__btn">Создать тему</button>
+                <button id='btn-create-theme' class="panel__btn">Создать тему</button>
             </div>
             <nav class="panel__links">
                 <a href="" class="panel__link">Все обсуждения</a>
@@ -49,7 +49,7 @@
         </div>
         <div class="content">
             <% for(var i=0; i<rows.length; i++) {%>
-            <a href="" class="content__post">
+            <a href="/theme/<%- rows[i].id; %>" class="content__post">
                 <div class="post__info">
                     <span class="post__name"> <%- rows[i].title; %> </span>
                     <span class="post__author"> <%- rows[i].author; %> </span>
@@ -65,5 +65,15 @@
 </body>
 
 <%- include('blocks/scripts.ejs');%>
+
+<script>
+    document.getElementById('btn-create-theme').onclick = () => {
+        if (typeof Cookies.get('token') != undefined & Cookies.get('token') != '') {
+            window.location.href = "/create-theme";
+        } else {
+            window.location.href = "/auth";
+        }
+    }
+</script>
 
 </html>

@@ -33,6 +33,10 @@ app.get('/register', (request, response) => {
     response.render('register');
 });
 
+app.get('/create-theme', (request, response) => {
+    response.render('create-theme');
+});
+
 app.get('/user/:id', (request, response) => {
     database.query('SELECT * FROM `users` WHERE id="' + request.params.id + '";', (error, rows, fields) => {
         if (error) {
@@ -51,6 +55,28 @@ app.get('/user/:id', (request, response) => {
             'banned': rows[0].banned,
             'image_link': rows[0].image_link,
             'description': rows[0].description
+        }});
+
+    });
+});
+
+app.get('/theme/:id', (request, response) => {
+    database.query('SELECT * FROM `themes` WHERE id="' + request.params.id + '";', (error, rows, fields) => {
+        if (error) {
+            return response.status(500).json({'error': 'Ошибка на сервере.' + error});
+        }
+
+        if (!rows.length > 0) {
+            return response.status(403).json({'error': 'Тема не найдена.'})
+        }
+
+        return response.render('theme', {'result': {
+            'id': rows[0].id, 
+            'author': rows[0].author, 
+            'title': rows[0].title, 
+            'description': rows[0].description,
+            'date_create': rows[0].date_create,
+            'author_id': rows[0].author_id,
         }});
 
     });

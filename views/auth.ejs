@@ -44,6 +44,10 @@
                     autohide: true,
                     interval: 3000
                 });
+
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 300)
             },
             error: (data) => {
                 new Toast({

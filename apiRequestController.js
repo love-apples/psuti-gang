@@ -235,7 +235,7 @@ class apiRequestController {
         var description = tools.delInjection(request.body.description);
         var token = tools.delInjection(request.body.token);
 
-        if (title > 50) {
+        if (title.length > 50) {
             return response.status(403).json({'error': 'Название темы не должно составлять больше 50 символов'})
         }
 
@@ -417,6 +417,62 @@ class apiRequestController {
 
     async getThemes(request, response) {
         database.query('SELECT * FROM `themes`;', (error, rows, fields) => {
+            if (error) {
+                return response.status(500).json({'error': 'Ошибка на сервере.' + error});
+            }
+
+            return response.status(200).json({'result': rows});
+
+        });
+    }
+
+    async createComment(request, response) {
+        if (!tools.checkJsonKey(request.body, 'text') || !tools.checkJsonKey(request.body, 'themeId' || !tools.checkJsonKey(request.body, 'token'))) {
+            return response.status(400).json({'error': 'Некорректные данные.'});
+        }
+
+        var text = tools.delInjection(request.body.text);
+        var themeId = tools.delInjection(request.body.themeId);
+        var token = tools.delInjection(request.body.token);
+
+        if (text.length > 500) {
+            return response.status(403).json({'error': 'Текст комментария не должен составлять больше 500 символов'})
+        }
+
+        database.query('SELECT * FROM `users` WHERE token="' + token + '";', (error, rows, fields) => {
+            if (error) {
+                return response.status(500).json({'error': 'Ошибка на сервере.'});
+            }
+
+            if (!rows.length > 0) {
+                return response.status(403).json({'error': 'Доступ запрещён.'})
+            }
+
+            database.query("INSERT INTO `comments` (" + 
+                "`author_id`, " +
+                "`text`, " +
+                "`date_create`, " + 
+                "`theme_id`" + ") VALUES (" +
+                "'" + rows[0].id + "', " +
+                "'" + text + "', " +
+                "'" + Date.now() + "', " +
+                "'" + themeId + "'" +
+                ");", (error, rows_database) => {
+                    if (error) {
+                        return response.status(500).json({'error': 'Произошла ошибка на сервере.'})
+                    }
+
+                    return response.status(200).json({'result': {'message': 'Успех!', 'comment_id': rows_database.insertId}})
+            })
+        });
+    }
+
+    async getCommentsTheme(request, response) {
+        if (!tools.checkJsonKey(request.body, 'themeId')) {
+            return response.status(400).json({'error': 'Некорректные данные.'});
+        }
+        
+        database.query("SELECT * FROM `comments` WHERE theme_id='" + request.body.themeId + "';", (error, rows, fields) => {
             if (error) {
                 return response.status(500).json({'error': 'Ошибка на сервере.' + error});
             }

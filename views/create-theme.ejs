@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('blocks/head.ejs');%>
+    <title>PSUTI GANG</title>
+</head>
+<body>
+    <%- include('blocks/header.ejs');%>
+    
+    <div class="container">
+        <div class="themenew">
+            <div class="themenew__block__title">
+                Создание новой темы
+            </div>
+            <input type="text" id="theme-title" placeholder="Заголовок" class="themenew__title">
+            <textarea name="" placeholder="Описание" class="themenew__description" id="theme-description" cols="30" rows="10"></textarea>
+            <button id='create-theme' class="panel__btn">Разместить тему</button>
+        </div>
+    </div>
+</body>
+
+<%- include('blocks/scripts.ejs');%>
+
+<script>
+    document.getElementById('create-theme').onclick = () => {
+        let title = document.getElementById('theme-title').value;
+        let description = document.getElementById('theme-description').value;
+        let token = Cookies.get('token');
+        
+        if (title.length < 5) {
+            return new Toast({
+                title: 'Создание темы',
+                text: 'Название темы не должно составлять меньше 5 символов.',
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+        }
+
+        if (title.length > 100) {
+            return new Toast({
+                title: 'Создание темы',
+                text: 'Название темы не должно составлять больше 100 символов.',
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+        }
+
+        if (description.length < 10) {
+            return new Toast({
+                title: 'Создание темы',
+                text: 'Описание темы не должно составлять меньше 10 символов.',
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+        }
+
+        if (description.length > 1000) {
+            return new Toast({
+                title: 'Создание темы',
+                text: 'Описание темы не должно составлять больше 1000 символов.',
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+        }
+
+        $.ajax({
+            url: "api/createTheme",
+            method: "POST",
+            data: {"title": title, "description": description, "token": token},
+            success: function(data) {
+                new Toast({
+                    title: 'Создание темы',
+                    text: data.result.message,
+                    theme: 'dark',
+                    autohide: true,
+                    interval: 3000
+                });
+
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 300)
+            },
+            error: (data) => {
+                new Toast({
+                    title: 'Создание темы',
+                    text: data.responseJSON.error,
+                    theme: 'dark',
+                    autohide: true,
+                    interval: 3000
+                });
+            }
+        });
+    };
+
+</script>
+
+</html>

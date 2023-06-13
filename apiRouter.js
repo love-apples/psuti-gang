@@ -15,5 +15,7 @@ apiRouter.get('/getTheme', apiRequestController.getTheme);
 apiRouter.get('/getThemes', apiRequestController.getThemes);
 apiRouter.post('/editTheme', apiRequestController.editTheme);
 apiRouter.post('/deleteTheme', apiRequestController.deleteTheme);
+apiRouter.post('/createComment', apiRequestController.createComment);
+apiRouter.post('/getCommentsTheme', apiRequestController.getCommentsTheme);
 
 export default apiRouter;

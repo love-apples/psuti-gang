@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('blocks/head.ejs');%>
+    <title>PSUTI GANG</title>
+</head>
+<body>
+    <%- include('blocks/header.ejs');%>
+    
+    <div class="container container-theme">
+        <div class="theme">
+          <div class="theme__title"><%= result.title%></div>
+          <div class="theme__author"><%= result.author%></div>
+          <div class="theme__description"><%= result.description%></div>
+        </div>
+
+        <div id='comments' class="comments">
+          <div class="comment">
+            <img src="https://sun1-88.userapi.com/s/v1/ig2/BYMi3PnAL6ny3IFyd-Ply8mW8cJkD-Hy9wlNSjnol2kIgcjtyWPVY-HWWF1aSxE5iZEzKXQz8CHAhvkH5gDWWzvY.jpg?size=200x0&quality=96&crop=0,0,996,996&ava=1" class="author__avatar"></img>
+            <div class="comment__author">
+              <div class="comment__author__name">хуй</div>
+              <div class="comment__text">хуйня</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="create__comment">
+          <div class="create__comment__block">
+            <input type="text" placeholder="Текст комментария" class="create__comment__input" id="comment-text">
+            <button id='create-comment' class="panel__btn">Оставить комментарий</button>
+          </div>
+        </div>
+    </div>
+</body>
+
+<%- include('blocks/scripts.ejs');%>
+
+<script>
+
+let themeId = window.location.href.split('/')[window.location.href.split('/').length-1];
+
+$.ajax({
+    url: "/api/getCommentsTheme",
+    method: "POST",
+    data: {"themeId": themeId},
+    success: function(data) {
+        let comments = '';
+        for (let i = 0; i < data.result.length; i++) {
+            comments += '<div class="comment">' +
+                '<img src="https://sun1-88.userapi.com/s/v1/ig2/BYMi3PnAL6ny3IFyd-Ply8mW8cJkD-Hy9wlNSjnol2kIgcjtyWPVY-HWWF1aSxE5iZEzKXQz8CHAhvkH5gDWWzvY.jpg?size=200x0&quality=96&crop=0,0,996,996&ava=1" class="author__avatar"></img>' +
+                '<div class="comment__author">' +
+                '<div class="comment__author__name">хуй</div>' +
+                '<div class="comment__text">хуйня</div>' +
+                '</div>' +
+            '</div>'
+        };
+        document.getElementById('comments').innerHTML = comments;
+    },
+    error: (data) => {
+        console.log(data)
+        new Toast({
+            title: 'Тема',
+            text: "Ошибка получения комментариев.",
+            theme: 'dark',
+            autohide: true,
+            interval: 3000
+        });
+    }
+});
+
+document.getElementById('create-comment').onclick = () => {
+    if (typeof Cookies.get('token') == undefined & Cookies.get('token') == '') {
+        window.location.href = "/auth";
+    }
+
+    let text = document.getElementById('comment-text').value;
+    let token = Cookies.get('token');
+
+    $.ajax({
+        url: "/api/createComment",
+        method: "POST",
+        data: {"text": text, "themeId": themeId, "token": token},
+        success: function(data) {
+            new Toast({
+                title: 'Создание комментария',
+                text: data.result.message,
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+
+            setTimeout(() => {
+                location.reload();
+            }, 300)
+        },
+        error: (data) => {
+            console.log(data)
+            new Toast({
+                title: 'Создание темы',
+                text: data.responseJSON,
+                theme: 'dark',
+                autohide: true,
+                interval: 3000
+            });
+        }
+    });
+}
+
+</script>
+
+</html>

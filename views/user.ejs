@@ -8,7 +8,7 @@
 
     <%- include('blocks/header.ejs');%>
 
-    <div class="container">
+    <div class="container container-theme">
         <div class="profile">
 
             <div class="profile__avatar">
@@ -25,6 +25,23 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="comments">
+          <div class="comment">
+            <img src="https://sun1-88.userapi.com/s/v1/ig2/BYMi3PnAL6ny3IFyd-Ply8mW8cJkD-Hy9wlNSjnol2kIgcjtyWPVY-HWWF1aSxE5iZEzKXQz8CHAhvkH5gDWWzvY.jpg?size=200x0&quality=96&crop=0,0,996,996&ava=1" class="author__avatar"></img>
+            <div class="comment__author">
+            <div class="comment__author__name">хуй</div>
+            <div class="comment__text">хуйня</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="create__comment">
+          <div class="create__comment__block">
+            <input type="text" placeholder="Текст комментария" class="create__comment__input" id="comment-text">
+            <button class="panel__btn">Оставить комментарий</button>
+          </div>
         </div>
     </div>
 </body>
